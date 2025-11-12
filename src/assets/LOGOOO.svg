@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="220" height="50" viewBox="0 0 220 50">
+  <g fill="#1890ff"> <circle cx="25" cy="25" r="20"/>
+  </g>
+  <g fill="#FFFFFF"> <circle cx="25" cy="25" r="16" fill="transparent" stroke="#FFFFFF" stroke-width="2"/>
+    <path d="M20,20 L32,25 L20,30 Z" fill="#FFFFFF"/>
+  </g>
+
+  <text x="55" y="20"
+        font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif"
+        font-size="20"
+        font-weight="bold"
+        fill="#1890ff" dominant-baseline="middle">
+    QTQPhim
+  </text>
+
+  <text x="55" y="38"
+        font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif"
+        font-size="10"
+        fill="#666666" dominant-baseline="middle">
+    Phim hay mới nhất
+  </text>
+</svg>
