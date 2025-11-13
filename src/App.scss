@@ -1377,3 +1377,317 @@ main, #root > div {
   .modal__cover{ display: none; }
   .modal__dialog{ width: min(620px, 96vw); }
 }
+
+
+
+//HomeCommunitySection
+.home-community-home-wrapper {
+    padding: 16px 20px;
+    margin: 80px 0;
+}
+
+.home-community {
+  border: 2px solid rgba(148,163,184,0.25);
+  border-radius: 12px;
+  padding: 24px 32px 28px;
+  color: #e5e7eb;
+}
+
+/* --- Top bình luận --- */
+.community__top {
+  padding-bottom: 24px;                      /* chừa khoảng dưới */
+  border-bottom: 1px solid rgba(148,163,184,0.25); /* đường kẻ ngang ngăn top với 3 cột */
+  position: relative;
+}
+
+/* wrapper để đặt nút điều hướng */
+.community__carousel-wrapper {
+  position: relative;
+}
+
+.community__title {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.community__title i {
+  color: #3371f5;
+}
+
+.community__carousel {
+  display: flex;
+  gap: 16px;
+  overflow: hidden;          /* chỉ hiện những thẻ trong viewport */
+  padding: 4px 0 10px;
+}
+
+.community__carousel::-webkit-scrollbar {
+  display: none;
+}
+
+.community__carousel {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+//.community__card {
+//  background: #1f2937;
+//  border-radius: 12px;
+//  padding: 16px;
+//  min-width: 220px;
+//  flex-shrink: 0;
+//  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+//}
+
+.community__card {
+  position: relative;
+  overflow: hidden;
+  background: #1f2937aa; /* fallback */
+  border-radius: 12px;
+  padding: 16px;
+  //min-width: 280px;
+  width: 300px;
+  flex-shrink: 0;
+  //box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+/* Lớp phủ fade ở đáy */
+.community__fade {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 50px; /* chỉnh độ cao fade tùy thích */
+  background: linear-gradient(
+                  to bottom,
+                  rgba(25,27,36,0) 0%,
+                  rgba(25,27,36,0.7) 60%,
+                  rgba(25,27,36,1) 100%
+  );
+  pointer-events: none; /* để không chặn click */
+}
+
+/* NỀN MỜ TỪ ẢNH */
+.community__bg {
+  position: absolute;
+  inset: 0;                /* phủ toàn card */
+  background-size: cover;
+  background-position: center;
+  filter: blur(18px);
+  transform: scale(1.2);   /* để khi blur không bị lộ mép */
+  opacity: 0.35;
+}
+
+.community__user {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.community__avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.community__user-info {
+  display: flex;
+  align-items: center;
+
+  h4{
+    font-size: 16px;
+    font-weight: 700;
+    margin-right: 8px;
+  }
+}
+
+.community__vip {
+  color: gold;
+}
+
+.community__text {
+  font-size: 14px;
+  margin-bottom: 12px;
+  opacity: 0.9;
+
+  display: -webkit-box;
+  -webkit-line-clamp: 2;     /* hiện tối đa 2 dòng */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+
+  min-height: 38px; /* quan trọng: giữ chiều cao cố định */
+}
+
+.community__stats {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  opacity: 0.8;
+}
+
+/* --- Bottom section --- */
+//.community__bottom {
+//  display: grid;
+//  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+//  gap: 24px;
+//  margin-top: 32px;
+//}
+.community__bottom {
+  display: grid;
+  grid-template-columns: 1.05fr 1.05fr 1.4fr; /* trái & giữa hẹp, phải rộng hơn chút như Rophim */
+  gap: 0;                                     /* bỏ gap, vì dùng viền ngăn cách */
+}
+
+.community__col {
+  padding: 0 24px 4px;
+}
+
+/* Cột 1: dính bên trái, có viền bên phải */
+.community__col:first-child {
+  padding-left: 0;
+  border-right: 1px solid rgba(148,163,184,0.25);
+}
+
+/* Cột 2: có viền hai bên phải-trái “ảo” (thật ra chỉ bên phải) */
+.community__col:nth-child(2) {
+  border-right: 1px solid rgba(148,163,184,0.25);
+}
+
+/* Cột 3: dính bên phải, không cần border-right */
+.community__col:last-child {
+  padding-right: 0;
+}
+
+
+.community__col h3 {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.community__col h3 i {
+  color: #3371f5;
+}
+
+.community__col ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.community__col li {
+  font-size: 14px;
+  padding: 8px 0;
+  //border-bottom: 1px solid rgba(148,163,184,0.15);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.community__col li:last-child {
+  border-bottom: none;
+}
+
+/* số thứ tự phía trước */
+.community__col .rank {
+  width: 18px;
+  color: #9ca3af;
+}
+
+
+.community__comments li {
+  background: #111218;
+  margin-bottom: 4px;
+  border-radius: 8px;
+  display: block;
+  padding: 12px;
+}
+
+.community__comments li strong {
+  display: block;
+  margin-bottom: 2px;
+  font-size: 14px;
+}
+
+.community__comments li p {
+  font-size: 13px;
+  opacity: 0.9;
+}
+
+/* header trong card: avatar bên trái, poster bên phải */
+.community__card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+/* avatar + tên trong header vẫn dùng community__user */
+.community__user {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.community__user-infor {
+  display: flex;
+  align-items: center;
+}
+
+/* poster nhỏ bên phải */
+.community__poster {
+  width: 70px;
+  height: 100px;
+  border-radius: 10px;
+  object-fit: cover;
+  flex-shrink: 0;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.45);
+}
+
+/* ===== Nút trái / phải ===== */
+.community__arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  border: 1px solid rgba(148, 163, 184, 0.7);
+  background: rgba(15, 23, 42, 0.98);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+  transition: background 0.15s ease, transform 0.15s ease, opacity 0.15s ease;
+  color: #e5e7eb;
+  opacity: 0.9;
+}
+
+.community__arrow--left {
+  left: -18px;
+}
+
+.community__arrow--right {
+  right: -18px;
+}
+
+.community__arrow:hover {
+  background: rgba(30, 64, 175, 0.95);
+  transform: translateY(-50%) scale(1.05);
+  opacity: 1;
+}
+
+.community__arrow i {
+  font-size: 14px;
+}

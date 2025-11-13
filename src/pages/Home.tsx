@@ -13,6 +13,7 @@ import thumb3 from "../assets/thumb3.png";
 import thumb4 from "../assets/thumb4.png";
 import {InterestSection} from "../components/InterestSection.tsx";
 import {HomeLists} from "../components/HomeLists.tsx";
+import {HomeCommunitySection} from "../components/HomeCommunitySection.tsx";
 
 // dữ liệu phim
 const movies = [
@@ -191,6 +192,9 @@ export const Home: React.FC = () => {
         <InterestSection />
         <div className="showcase-wrapper-home">
             <HomeLists />
+        </div>
+        <div className="home-community-home-wrapper">
+            <HomeCommunitySection />
         </div>
     </>
     );
