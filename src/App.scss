@@ -74,6 +74,7 @@ body, html {
 
 /* Search */
 .header__search {
+  position: relative;
   display: flex;
   align-items: center;
   background: rgba(255 255 255 / 7%);
@@ -83,6 +84,144 @@ body, html {
   max-width: 420px;
   flex: 1;
   margin: 0 16px;
+}
+
+/* Nút X nhỏ để xóa text */
+.header__search-clear {
+  background: #FFFFFF;
+  color: #333333;
+  border: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px; // Dùng icon font-awesome sẽ đẹp hơn
+  cursor: pointer;
+  margin-left: 8px;
+  flex-shrink: 0;
+}
+.header__search-clear:hover {
+  background: #535bf2;
+}
+
+/* Panel kết quả */
+.search-results {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  margin-top: 15px;
+  background: rgba(21, 20, 28, 0.95); /* Màu nền tối như hình */
+  border-radius: 12px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+  z-index: -1; // Nằm dưới header nhưng trên content
+  max-height: 90vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  color: #e5e7eb;
+  border: 1px solid rgba(148, 163, 184, 0.2); // Thêm viền
+}
+
+.search-results__title {
+  font-size: 14px;
+  font-weight: 500;
+  color: #9ca3af; /* Màu "Danh sách phim" */
+  padding: 12px 16px 8px;
+  margin: 0;
+  flex-shrink: 0;
+}
+
+.search-results__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  overflow-y: auto;
+  flex: 1; /* Để list này tự co giãn */
+}
+
+.search-results__item a {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 16px;
+  text-decoration: none;
+  color: #e5e7eb;
+}
+.search-results__item a:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.search-results__poster {
+  width: 50px; // Thu nhỏ lại chút cho vừa
+  height: 70px; /* Tỉ lệ poster dọc */
+  object-fit: cover;
+  border-radius: 6px;
+  flex-shrink: 0;
+}
+
+.search-results__info {
+  min-width: 0;
+}
+
+.search-results__name {
+  font-size: 16px;
+  font-weight: 400;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #fff;
+}
+
+.search-results__sub {
+  font-size: 13px;
+  color: #9ca3af;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.search-results__meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap; // Cho phép xuống dòng nếu quá nhiều
+  gap: 8px;
+  font-size: 12px;
+  color: #9ca3af;
+  margin-top: 6px;
+
+  // Dùng dấu chấm • để ngăn cách
+  span + span::before {
+    content: "•";
+    margin-right: 8px;
+    color: #6b7280;
+  }
+}
+
+/* Khi không tìm thấy kết quả */
+.search-results__empty {
+  padding: 20px 16px;
+  color: #9ca3af;
+  text-align: center;
+  font-style: italic;
+}
+
+/* Nút "Toàn bộ kết quả" */
+.search-results__all-btn {
+  display: block;
+  padding: 14px 16px;
+  text-align: center;
+  font-weight: 400;
+  background: rgba(30, 33, 41, 0.5); // Nền tối hơn 1 chút
+  color: #e5e7eb;
+  text-decoration: none;
+  border-top: 1px solid #334155;
+  flex-shrink: 0;
+}
+.search-results__all-btn:hover {
+  background: #334155;
 }
 
 .header__search-icon {
@@ -111,7 +250,7 @@ body, html {
   align-items: center;
   gap: 14px;
   font-size: 16px;
-  font-weight: 500;
+  font-weight: 350;
 }
 
 .header__nav a {
@@ -149,7 +288,7 @@ body, html {
   position: absolute;
   top: 100%;
   margin-top: 22px;
-  background: rgba(15, 23, 42, 0.4); /* nền đen hơi trong */
+  background: rgba(21, 20, 28, 0.8); /* nền đen hơi trong */
   border-radius: 8px;
   box-shadow: 0 18px 40px rgba(0, 0, 0, 0.7);
   z-index: 99;
@@ -1690,4 +1829,858 @@ main, #root > div {
 
 .community__arrow i {
   font-size: 14px;
+}
+
+
+
+/* =============================================
+   SCSS CHO TRANG DANH SÁCH (CATEGORY PAGE)
+   ============================================= */
+
+.category-page {
+  margin: 100px 0;
+  padding: 0 20px;
+  min-height: 100vh;
+}
+
+.category-page__title {
+  font-size: 28px;
+  font-weight: 500;
+  color: #fff;
+  margin-bottom: 20px;
+}
+
+.filter-bar {
+  margin-bottom: 24px;
+}
+
+.filter-bar__button {
+  background: #272a37;
+  border: 1px solid #3e4150;
+  color: #e5e7eb;
+  padding: 8px 16px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+.filter-bar__button:hover {
+  background: #3e4150;
+}
+
+/* =============================================
+   LƯỚI PHIM (MOVIE GRID)
+   ============================================= */
+.movie-grid {
+  display: grid;
+  /* 8 CỘT NHƯ BẠN YÊU CẦU */
+  grid-template-columns: repeat(8, minmax(0, 1fr));
+  gap: 20px 16px;
+}
+
+/* =============================================
+   THẺ PHIM (MOVIE CARD)
+   ============================================= */
+.movie-card {
+  display: block;
+  text-decoration: none;
+  color: #e5e7eb;
+}
+
+.movie-card:hover .movie-card__title {
+  color: #3371f5; // Màu xanh khi hover
+}
+
+.movie-card__thumb {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 2 / 3; // Tỉ lệ 2:3 cho poster
+  border-radius: 12px;
+  overflow: hidden;
+  background: #1f2937; // Màu nền chờ
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.movie-card:hover .movie-card__thumb {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+}
+
+.movie-card__thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Badges (L.Tiếng, T.Minh) */
+.movie-card__badges {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  display: flex;
+  flex-direction: column; // Xếp chồng lên nhau
+  gap: 4px;
+}
+
+.movie-card__badge {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 4px;
+  color: #fff;
+}
+
+.movie-card__badge--blue {
+  background: #3b82f6;
+  color: #061830;
+}
+.movie-card__badge--green {
+  background: #22c55e;
+  color: #052e12;
+}
+.movie-card__badge--gray {
+  background: #6b7280;
+  color: #0b1220;
+}
+
+/* Thông tin bên dưới poster */
+.movie-card__info {
+  padding: 12px 4px 0;
+}
+
+.movie-card__title {
+  font-size: 15px;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 4px;
+  transition: color 0.2s ease;
+}
+
+.movie-card__subtitle {
+  font-size: 13px;
+  color: #9ca3af;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* =============================================
+   PHÂN TRANG (PAGINATION)
+   ============================================= */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-top: 40px;
+}
+
+.pagination__button {
+  background: #272a37;
+  border: 1px solid #3e4150;
+  color: #e5e7eb;
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.pagination__button:hover:not(:disabled) {
+  background: #3e4150;
+  border-color: #525563;
+}
+.pagination__button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Nút được chọn */
+.pagination__button--active {
+  background: #3371f5;
+  color: #fff;
+  border-color: #3371f5;
+}
+
+/* =============================================
+   RESPONSIVE (ĐIỀU CHỈNH LẠI SỐ CỘT)
+   ============================================= */
+
+/* Tablet (ví dụ: 1024px) - 6 cột */
+@media (max-width: 1024px) {
+  .movie-grid {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+}
+
+/* Tablet nhỏ (ví dụ: 768px) - 4 cột */
+@media (max-width: 768px) {
+  .category-page {
+    padding: 20px 16px;
+  }
+  .movie-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px 12px;
+  }
+}
+
+/* Mobile (ví dụ: 480px) - 2 cột */
+@media (max-width: 480px) {
+  .movie-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .movie-card__title {
+    font-size: 14px;
+  }
+}
+
+
+/* =============================================
+   MOVIE PREVIEW (POPUP KHI HOVER)
+   ============================================= */
+.movie-preview {
+  position: fixed; /* Cố định trên màn hình */
+  z-index: 1000; /* Đảm bảo nó luôn ở trên cùng */
+  background: #1f2937; /* Màu nền giống search results */
+  border-radius: 12px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
+  color: #e5e7eb;
+  width: 400px; /* Chiều rộng cố định, có thể điều chỉnh */
+  // height: 300px; /* Tùy thuộc nội dung */
+  overflow: hidden;
+  border: 1px solid rgba(148, 163, 184, 0.2);
+
+  // Hiệu ứng fade-in nhẹ nhàng
+  animation: previewFadeIn 0.2s ease-out forwards;
+}
+
+@keyframes previewFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+
+.movie-preview__media {
+  position: relative;
+  width: 100%;
+  height: 200px; /* Chiều cao cố định cho phần media */
+  background: #0d121c;
+  overflow: hidden;
+  border-bottom: none; // 👈 BỎ VIỀN DƯỚI
+
+  // 👇 THÊM KHỐI NÀY ĐỂ TẠO LỚP PHỦ FADE
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0; // Phủ toàn bộ
+
+    // Tạo dải màu mờ dần
+    // Bắt đầu trong suốt từ trên xuống 50%,
+    // rồi mờ dần sang màu nền (#1f2937) ở 100% (đáy)
+    background: linear-gradient(
+                    to bottom,
+                    rgba(31, 41, 55, 0) 50%,
+                    rgba(31, 41, 55, 1) 100%
+    );
+    pointer-events: none; // Để không chặn click
+  }
+}
+
+.movie-preview__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.movie-preview__content {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.movie-preview__title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #fff;
+  margin: 0;
+}
+
+.movie-preview__subtitle {
+  font-size: 14px;
+  color: #9ca3af;
+  margin: 0;
+}
+
+.movie-preview__actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 5px;
+}
+
+.movie-preview__actions .btn {
+  padding: 8px 14px;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.movie-preview__actions .btn--primary {
+  background: #3371f5;
+  color: #fff;
+  border: none;
+}
+.movie-preview__actions .btn--primary:hover {
+  background: #275ec9;
+}
+
+.movie-preview__actions .btn--secondary {
+  background: none;
+  color: #e5e7eb;
+  border: 1px solid #FFFFFF;
+}
+.movie-preview__actions .btn--secondary:hover {
+  background: #4b5563;
+}
+
+.movie-preview__meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  color: #9ca3af;
+  margin-top: 8px;
+}
+
+.movie-preview__imdb {
+  background: #eab308; /* Màu vàng IMDB */
+  color: #1f2937;
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-weight: 700;
+  font-size: 12px;
+}
+
+.movie-preview__genres {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  font-size: 13px;
+  color: #9ca3af;
+  margin-top: 5px;
+
+  span {
+    padding: 2px 8px;
+    background: rgba(148, 163, 184, 0.1);
+    border-radius: 4px;
+  }
+}
+
+/* =============================================
+   SCSS CHO TRANG XEM PHIM (WATCH PAGE)
+   ============================================= */
+
+/* =============================================
+   SCSS CHO TRANG XEM PHIM (WATCH PAGE) - ĐÃ SỬA LẠI
+   ============================================= */
+
+.watch-page {
+  /* 👇 BỎ 3 DÒNG NÀY */
+  /*
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  */
+
+  /* 👇 THÊM CÁC DÒNG NÀY (Giống .category-page) */
+  padding: 88px 32px 160px; /* 64px(header) + 24px(padding) = 88px */
+  min-height: 100vh;
+  box-sizing: border-box;
+
+  /* 👇 Giữ lại màu nền */
+  background: #191b24; // Dùng màu nền chung của trang
+  color: #fff;
+
+  /* Bỏ các thuộc tính flex, để trang cuộn tự nhiên */
+}
+
+.watch-header {
+  display: flex;
+  align-items: center;
+  /* Bỏ padding L/R (vì .watch-page đã có), chỉ giữ padding-bottom */
+  padding: 0 0 20px 0;
+  background: none; // 👈 Bỏ nền đen
+  flex-shrink: 0;
+}
+
+.watch-header__back-btn {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 20px;
+  cursor: pointer;
+  margin-right: 16px;
+  opacity: 0.7;
+  transition: opacity 0.2s ease;
+}
+.watch-header__back-btn:hover {
+  opacity: 1;
+}
+
+.watch-header__title {
+  font-size: 20px;
+  font-weight: 500;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.watch-player {
+  /* Bỏ 'flex-grow: 1' */
+  background: #000;
+  overflow: hidden;
+
+  /* 👇 THÊM 3 DÒNG NÀY để tạo video 16:9 đáp ứng */
+  position: relative;
+  padding-top: 56.25%; /* 16:9 Aspect Ratio (9 / 16 = 0.5625) */
+  border-radius: 12px; // Thêm bo góc cho đẹp
+}
+
+.watch-player iframe {
+  /* 👇 SỬA LẠI 4 DÒNG NÀY để vừa với khung 16:9 */
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+
+/* =============================================
+   SCSS CHO NỘI DUNG DƯỚI VIDEO (WATCH PAGE)
+   ============================================= */
+
+// Tiêu đề chung cho các mục
+.section-title {
+  font-size: 22px;
+  font-weight: 600;
+  color: #fff;
+  margin: 0 0 20px 0;
+}
+
+// Layout 2 cột
+.watch-content-layout {
+  display: grid;
+  // Cột chính (1fr) và sidebar (340px)
+  grid-template-columns: 1fr 340px;
+  gap: 40px;
+  margin-top: 32px; // Khoảng cách với video player
+}
+
+.watch-main {
+  display: flex;
+  flex-direction: column;
+  gap: 48px; // Khoảng cách giữa Info, Tập phim, Bình luận
+}
+
+.watch-sidebar {
+  display: flex;
+  flex-direction: column;
+  padding-left: 32px;
+  gap: 40px;
+  border-left: 1px solid rgba(148, 163, 184, 0.2);
+}
+
+// Responsive:
+@media (max-width: 1024px) {
+  .watch-page {
+    padding: 88px 16px 40px; // Giảm padding
+  }
+  .watch-content-layout {
+    grid-template-columns: 1fr; // Chuyển thành 1 cột
+  }
+}
+
+/* -------------------
+   1. Watch Info (Thông tin phim)
+   ------------------- */
+.watch-info {
+  display: flex;
+  gap: 32px;
+  padding-bottom: 28px;
+  border-bottom: 2px solid rgba(148, 163, 184, 0.1);
+
+}
+
+.watch-info__poster {
+  width: 130px; // Chiều rộng cố định cho poster
+  flex-shrink: 0; // Ngăn poster bị co lại
+
+  img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 2 / 3; // Giữ tỷ lệ 2:3
+    border-radius: 8px;
+    object-fit: cover;
+  }
+}
+
+.watch-info__details {
+  flex: 1;
+}
+
+.watch-info__title {
+  font-size: 28px;
+  font-weight: 700;
+  color: #fff;
+  margin: 0 0 8px 0;
+}
+
+.watch-info__subtitle {
+  font-size: 16px;
+  color: #3371f5;
+  margin: 0 0 16px 0;
+}
+
+.watch-info__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+.chip2 {
+  font-size: 13px;
+  padding: 4px 10px;
+  border: 1px #FFFFFF solid;
+  border-radius: 6px;
+  background: rgba(50, 55, 66, 1);
+  color: #e5e7eb;
+}
+.chip--imdb2 {
+  background: none;
+  color: #fff;
+  font-weight: 600;
+  border: 1px solid #3371f5;
+  strong {
+    color: #3371f5;
+    margin-right: 4px;
+  }
+}
+
+.watch-info__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 16px;
+  padding: 0 6.4px;
+  span {
+    font-size: 14px;
+    color: #cbd5e1;
+    position: relative;
+    & + span::before { // Dấu chấm ngăn cách
+      content: "";
+      position: absolute;
+      left: -9px;
+      color: #6b7280;
+    }
+  }
+}
+
+.watch-info__desc {
+  font-size: 15px;
+  color: #AAAAAA;
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+
+.watch-info__more {
+  color: #3371f5;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 14px;
+  i { font-size: 12px; margin-left: 4px; }
+}
+
+.watch-info__actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 140px; // Cố định chiều rộng
+}
+.btn-action {
+  width: 100%;
+  padding: 10px 16px;
+  border-radius: 8px;
+  //background: #272a37;
+  background: none;
+
+  border: 1px solid #3e4150;
+  color: #e5e7eb;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: background-color 0.2s;
+
+  &:hover {
+    color: #3371f5;
+  }
+}
+.btn-action--rating {
+  flex-direction: column;
+  background: #3556b6;
+  color: #fff;
+  gap: 4px;
+  &:hover {
+    background: #3556b6;
+    color: #fff;
+  }
+  strong { font-size: 20px; }
+  span { font-size: 12px; opacity: 0.8; }
+}
+
+/* -------------------
+   2. Episode List (Danh sách tập)
+   ------------------- */
+.episode-list__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+.episode-list__item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #272a37;
+  border-radius: 10px;
+  padding: 10px;
+  text-decoration: none;
+  border: 2px solid transparent;
+  transition: border-color 0.2s;
+
+  &:hover {
+    border-color: #4b5563;
+  }
+}
+.episode-list__item--active {
+  border-color: #3371f5;
+}
+
+.episode-list__thumb {
+  position: relative;
+  width: 120px;
+  height: 70px;
+  flex-shrink: 0;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 6px;
+  }
+}
+
+.episode-list__tag {
+  position: absolute;
+  bottom: 4px;
+  left: 4px;
+  background: rgba(0, 0, 0, 0.7);
+  color: #fff;
+  padding: 2px 6px;
+  font-size: 11px;
+  border-radius: 4px;
+}
+
+.episode-list__info {
+  min-width: 0;
+  span {
+    font-size: 13px;
+    color: #9ca3af;
+  }
+  h4 {
+    font-size: 15px;
+    font-weight: 500;
+    color: #fff;
+    margin: 4px 0 0 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+/* -------------------
+   3. Comment Section (Bình luận)
+   ------------------- */
+.comment-section {
+  margin-top: 48px; // Thêm khoảng cách với mục trên
+}
+
+.comment-section__tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+.comment-tab {
+  background: none;
+  border: none;
+  font-size: 16px;
+  font-weight: 500;
+  color: #9ca3af;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.comment-tab--active {
+  background: #272a37;
+  color: #fff;
+}
+
+.comment-section__form {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 32px;
+}
+.comment-form__avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-top: 5px; // Dịch avatar xuống 1 chút cho cân
+}
+.comment-form__input {
+  flex: 1; // 👈 Cho input chiếm hết không gian giữa
+  background: #272a37;
+  border: 1px solid #3e4150;
+  border-radius: 12px; // Bo tròn hơn
+  padding: 14px 16px;
+  color: #fff;
+  font-size: 15px;
+  min-height: 52px; // Chiều cao tối thiểu (bằng nút Gửi)
+  resize: vertical;
+
+  &::placeholder {
+    color: #9ca3af;
+  }
+}
+.comment-form__submit {
+  background: #3371f5; // 👈 Màu xanh blue
+  border: none;
+  color: #fff;
+  font-weight: 600;
+  font-size: 15px;
+  padding: 0 16px; // Padding ngang
+  height: 52px; // 👈 Cao bằng min-height của input
+  border-radius: 12px; // 👈 Bo tròn
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px; // Khoảng cách giữa chữ "Gửi" và icon
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background: #275ec9; // Màu hover
+  }
+}
+.comment-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 40px;
+  color: #9ca3af;
+  font-size: 15px;
+  border: 1px dashed #3e4150; // Thêm viền mờ
+  border-radius: 12px;
+  background: #14161d;
+
+  i { font-size: 32px; }
+}
+
+/* -------------------
+   4. Actor List (Diễn viên)
+   ------------------- */
+.actor-list__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+.actor-list__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  gap: 8px;
+  img {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  span {
+    font-size: 13px;
+    color: #cbd5e1;
+    text-align: center;
+    transition: color 0.2s;
+  }
+  &:hover span {
+    color: #3371f5;
+  }
+}
+
+/* -------------------
+   5. Suggestion List (Đề xuất)
+   ------------------- */
+.suggestion-list__grid {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.suggestion-list__item {
+  display: flex;
+  gap: 12px;
+  text-decoration: none;
+  background: #1e1f28;
+  border-radius: 10px;
+  align-items: center;
+
+  img {
+    width: 100px;
+    height: 140px;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+  h4 {
+    font-size: 15px;
+    font-weight: 400;
+    color: #fff;
+    margin: 4px 0 10px 0;
+  }
+  &:hover h4 {
+    color: #3371f5;
+  }
+}
+.suggestion-list__meta {
+  display: flex;
+  gap: 8px;
 }
